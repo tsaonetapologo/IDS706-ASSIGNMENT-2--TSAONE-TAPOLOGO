@@ -47,9 +47,11 @@ Expected location:
 
 ## Generated Outputs
 
-The following files are created in the working directory:
+The following output files are retained in the project directory:
 
-- `age_distribution.png`
+- `age_distribution.png` — a histogram showing the distribution of customer ages in the dataset.
+- `purchase_amount_vs_age_model.png` — a scatter plot comparing actual and predicted purchase amounts against age for the regression analysis.
+Keeping both plots is useful because they answer different questions: the histogram describes the data distribution, while the scatter plot shows the relationship being modeled and the model's fit.
 
 ## Results 
 
