@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project analyzes a synthetic ecommerce customer dataset to understand customer purchasing patterns and model the relationship between customer age and purchase amount. The workflow includes data cleaning, exploratory analysis, visualization, and a simple linear regression model.
+This project analyzes a synthetic ecommerce customer dataset to understand customer purchasing patterns and model the relationship between customer age and purchase amount (that is how much customer's spent purchasing items on the website). The workflow includes data cleaning, exploratory analysis, visualization and lastly, a simple linear regression model.
 
 ## Assignment Problem
 
@@ -12,29 +12,28 @@ The objective is to examine how customer attributes relate to purchasing behavio
 
 The analysis uses the dataset:
 
-- `Ecommerce_Consumer_Behavior_Analysis_Data.csv`
+- `Ecommerce_Consumer_Behavior_Analysis_Data.csv` from Kaggle
 
 Expected location:
 
 - `/Users/tsaonetapologo/Downloads/Ecommerce_Consumer_Behavior_Analysis_Data.csv`
 
-## Methodology
+## Methodology (how the analysis was carried out)
 
-The script performs the following steps:
-
-1. Loads the dataset and validates that the file exists and is not empty.
-2. Converts the `Purchase_Amount` field from currency strings into numeric values.
-3. Prints a preview of the dataset, column names, summary statistics, and missing values.
-4. Identifies duplicate rows and filters high-spending customers for additional review.
-5. Groups average purchase amount by age to examine spending patterns by demographic segment.
-6. Generates exploratory visualizations for age distribution and age versus purchase amount.
-7. Trains a simple linear regression model using age as the predictor variable.
-8. Evaluates the model using:
+1. I loaded the dataset and validated that the file exists and is not empty.
+2. Converted the `Purchase_Amount` field from currency strings into numeric values for my code run 
+   easily with no errors.
+3. Printed a preview of the dataset, column names, summary statistics, and missing values.
+4. Identified duplicate rows and filters high-spending customers for additional review.
+5. Grouped average purchase amount by age to examined spending patterns by demographic segment.
+6. Generated exploratory visualizations for age distribution and age versus purchase amount.
+7. Trained a simple linear regression model using age as the predictor variable.
+8. Evaluated the model using:
    - Mean Squared Error (MSE)
    - Root Mean Squared Error (RMSE)
    - Mean Absolute Error (MAE)
    - R-squared ($R^2$)
-9. Saves the generated plots to the working directory for interpretation and reporting.
+9. Saved the generated plots to the working directory for interpretation and reporting.
 
 ## Tools Used
 
@@ -46,6 +45,24 @@ The script performs the following steps:
 - scikit-learn
 - Rust (for performance comparison and discussion)
 
+## Generated Outputs
+
+The following files are created in the working directory:
+
+- `age_distribution.png`
+
+## Results 
+
+The dataset contains mostly complete records, with only a small number of missing values in categorical fields. These were filled with a placeholder value to maintain consistency in the analysis, and rows with missing values in numeric fields required for regression were removed before modeling.
+
+The exploratory analysis suggests that customer age has only a limited relationship with purchase amount in this dataset. The linear regression model provides a useful baseline for prediction, but its explanatory power is modest, indicating that additional behavioral or demographic features would likely improve predictive accuracy. The script prints MSE, RMSE, MAE, and $R^2$ for the final model evaluation.
+
+## Conclusion
+
+This project demonstrates a basic end-to-end data analysis and machine learning workflow using a consumer behavior dataset. It provides a foundation for more advanced modeling, feature engineering, and deeper behavioral analysis in future work. The main lesson is that age alone is not a strong predictor of purchase amount, and a more complete model would likely benefit from incorporating additional behavioral and demographic features.
+
+
+## QUESTION 2
 ## Rust and Pandas Update
 
 This assignment also highlights the practical distinction between pandas and Rust in data processing workflows. Pandas is highly effective for rapid exploratory analysis, data cleaning, and prototyping because it provides an intuitive API and integrates seamlessly with Python-based tools for plotting, statistical analysis, and machine learning. In this project, pandas was used to load the dataset, clean the purchase data, summarize the data, and build the regression model.
@@ -70,20 +87,3 @@ python -m pip install pandas matplotlib seaborn scikit-learn polars
 /Users/tsaonetapologo/data-processing-frameworks-demo/.venv/bin/python /Users/tsaonetapologo/Downloads/ecommerce_analysis.py
 ```
 
-## Generated Outputs
-
-The following files are created in the working directory:
-
-- `age_distribution.png`
-- `age_vs_purchase_amount.png`
-- `purchase_amount_vs_age_model.png`
-
-## Results Summary
-
-The dataset contains mostly complete records, with only a small number of missing values in categorical fields. These were filled with a placeholder value to maintain consistency in the analysis, and rows with missing values in numeric fields required for regression were removed before modeling.
-
-The exploratory analysis suggests that customer age has only a limited relationship with purchase amount in this dataset. The linear regression model provides a useful baseline for prediction, but its explanatory power is modest, indicating that additional behavioral or demographic features would likely improve predictive accuracy. The script prints MSE, RMSE, MAE, and $R^2$ for the final model evaluation.
-
-## Conclusion
-
-This project demonstrates a basic end-to-end data analysis and machine learning workflow using a consumer behavior dataset. It provides a foundation for more advanced modeling, feature engineering, and deeper behavioral analysis in future work. The main lesson is that age alone is not a strong predictor of purchase amount, and a more complete model would likely benefit from incorporating additional behavioral and demographic features.
