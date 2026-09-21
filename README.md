@@ -88,4 +88,4 @@ python -m pip install pandas matplotlib seaborn scikit-learn polars
 ```bash
 /Users/tsaonetapologo/data-processing-frameworks-demo/.venv/bin/python /Users/tsaonetapologo/Downloads/ecommerce_analysis.py
 ```
-
+## Visualizations

@@ -195,6 +195,14 @@ print("\nPOLARS ANALYSIS")
 # Load the dataset using Polars
 pl_df = pl.read_csv(csv_path)
 
+# Convert Purchase_Amount to numeric
+pl_df = pl_df.with_columns(
+    pl.col("Purchase_Amount")
+    .str.replace_all(r"[$,]", "", literal=False)
+    .cast(pl.Float64, strict=False)
+    .alias("Purchase_Amount")
+)
+
 # Display the first 5 rows
 print("\nFirst 5 rows using Polars:")
 print(pl_df.head())
