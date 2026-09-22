@@ -18,10 +18,8 @@ def clean_data(df):
 
     if "Purchase_Amount" in df.columns:
         df["Purchase_Amount"] = pd.to_numeric(
-            df["Purchase_Amount"]
-            .astype(str)
-            .str.replace(r"[$,]", "", regex=True),
-            errors="coerce"
+            df["Purchase_Amount"].astype(str).str.replace(r"[$,]", "", regex=True),
+            errors="coerce",
         )
 
     categorical_columns = [
@@ -39,7 +37,7 @@ def clean_data(df):
         "Marital_Status",
         "Education_Level",
         "Payment_Method",
-        "Device_Used_for_Shopping"
+        "Device_Used_for_Shopping",
     ]
 
     for column in categorical_columns:
@@ -50,13 +48,10 @@ def clean_data(df):
         "Age",
         "Purchase_Amount",
         "Frequency_of_Purchase",
-        "Time_to_Decision"
+        "Time_to_Decision",
     ]
 
-    required_columns = [
-        column for column in numeric_columns
-        if column in df.columns
-    ]
+    required_columns = [column for column in numeric_columns if column in df.columns]
 
     if required_columns:
         df = df.dropna(subset=required_columns)
@@ -73,6 +68,7 @@ def average_spending_by_age(df):
     """Calculate average purchase amount for each age."""
     return df.groupby("Age")["Purchase_Amount"].mean()
 
+
 project_root = Path(__file__).resolve().parent
 download_dir = Path("/Users/tsaonetapologo/Downloads")
 
@@ -82,9 +78,9 @@ candidate_paths = [
         if os.environ.get("ECOMMERCE_CSV_PATH")
         else None
     ),
-    project_root / "Ecommerce_Consumer_Behavior_Analysis_Data.csv",
-    project_root / "data" / "Ecommerce_Consumer_Behavior_Analysis_Data.csv",
-    download_dir / "Ecommerce_Consumer_Behavior_Analysis_Data.csv",
+    project_root / "Ecommerce_Consumer_Behavior_Analysis_Data-2.csv",
+    project_root / "data" / "Ecommerce_Consumer_Behavior_Analysis_Data-2.csv",
+    download_dir / "Ecommerce_Consumer_Behavior_Analysis_Data-2.csv",
 ]
 
 csv_path = next(
@@ -283,5 +279,3 @@ print(pl_df.describe())
 if "Purchase_Amount" in pl_df.columns:
     average_purchase = pl_df["Purchase_Amount"].mean()
     print(f"\nAverage Purchase Amount: {average_purchase}")
-
-
