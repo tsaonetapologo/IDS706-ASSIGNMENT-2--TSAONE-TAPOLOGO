@@ -27,8 +27,8 @@ This repository reflects the final state of the assignment work completed today.
 
 ### 4. Visualization
 - Created an age distribution plot to show the customer demographic spread.
-- Generated the main regression visualization comparing purchase amount and age trends.
-- Saved the remaining output images to the project directory for interpretation and reporting.
+- Generated the final age-vs-purchase regression visualization used for model interpretation.
+- Saved the output plots in the project directory for reporting and review.
 
 ### 5. Regression modeling
 - Built a linear regression model using age as the predictor variable.
@@ -54,6 +54,7 @@ The model shows that age alone is not a strong predictor of purchase amount in t
 - `ecommerce_analysis.py` — data cleaning, exploratory analysis, plotting, and regression model
 - `test_ecommerce_analysis.py` — pytest-based validation of core functions
 - `.github/workflows/tests.yml` — automated testing pipeline
+- `Ecommerce_Consumer_Behavior_Analysis_Data-2.csv` — source dataset used for the analysis
 - `age_distribution.png` — age distribution visualization
 - `purchase_amount_vs_age.png` — regression visualization
 
@@ -80,4 +81,4 @@ The project was verified with the current repository state:
 - Analysis execution successfully produced the model metrics and the remaining output plots
 
 ## Final Status
-The repository is now complete with a working analysis workflow, validated tests, remaining output visualizations, and CI configuration. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.
+The repository is now complete with a working analysis workflow, validated tests, the current output visualizations, and CI configuration. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.
