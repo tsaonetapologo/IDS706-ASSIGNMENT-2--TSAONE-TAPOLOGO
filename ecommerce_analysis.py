@@ -9,6 +9,70 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import pandas as pd
+
+
+def clean_data(df):
+    """Clean the e-commerce dataset."""
+    df = df.copy()
+
+    if "Purchase_Amount" in df.columns:
+        df["Purchase_Amount"] = pd.to_numeric(
+            df["Purchase_Amount"]
+            .astype(str)
+            .str.replace(r"[$,]", "", regex=True),
+            errors="coerce"
+        )
+
+    categorical_columns = [
+        "Social_Media_Influence",
+        "Engagement_with_Ads",
+        "Gender",
+        "Income_Level",
+        "Purchase_Category",
+        "Purchase_Channel",
+        "Time_of_Purchase",
+        "Shipping_Preference",
+        "Purchase_Intent",
+        "Location",
+        "Occupation",
+        "Marital_Status",
+        "Education_Level",
+        "Payment_Method",
+        "Device_Used_for_Shopping"
+    ]
+
+    for column in categorical_columns:
+        if column in df.columns:
+            df[column] = df[column].fillna("Unknown")
+
+    numeric_columns = [
+        "Age",
+        "Purchase_Amount",
+        "Frequency_of_Purchase",
+        "Time_to_Decision"
+    ]
+
+    required_columns = [
+        column for column in numeric_columns
+        if column in df.columns
+    ]
+
+    if required_columns:
+        df = df.dropna(subset=required_columns)
+
+    return df
+
+
+def get_high_spenders(df, threshold=1000):
+    """Return customers whose purchase amount exceeds the threshold."""
+    return df[df["Purchase_Amount"] > threshold].copy()
+
+
+def average_spending_by_age(df):
+    """Calculate average purchase amount for each age."""
+    return df.groupby("Age")["Purchase_Amount"].mean()
+
 project_root = Path(__file__).resolve().parent
 download_dir = Path("/Users/tsaonetapologo/Downloads")
 
@@ -219,3 +283,5 @@ print(pl_df.describe())
 if "Purchase_Amount" in pl_df.columns:
     average_purchase = pl_df["Purchase_Amount"].mean()
     print(f"\nAverage Purchase Amount: {average_purchase}")
+
+
