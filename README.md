@@ -1,91 +1,83 @@
-# Ecommerce Consumer Behavior Analysis
+# E-commerce Consumer Behavior Analysis
 
 ## Overview
+This project analyzes customer purchasing behavior using an e-commerce dataset and builds a simple predictive model to understand how age relates to purchase amount. The work includes data cleaning, exploratory analysis, visualizations, and regression modeling.
 
-This project analyzes a synthetic ecommerce customer dataset to understand customer purchasing patterns and model the relationship between customer age and purchase amount (that is how much customer's spent purchasing items on the website). The workflow includes data cleaning, exploratory analysis, visualization and lastly, a simple linear regression model.
+## Assignment 3 Update
+This repository reflects the final state of the assignment work completed today. It includes the full data analysis workflow, validation tests, generated visualizations, and a working GitHub Actions CI setup.
 
-## Assignment Problem
+## Tasks Completed 
 
-The objective is to examine how customer attributes relate to purchasing behavior and to build a basic predictive model that estimates purchase amount using age as the explanatory variable.
+### 1. Data loading and validation
+- Confirmed the import path for the dataset and checked that the CSV existed and was not empty.
+- Loaded the dataset into pandas for inspection and transformation.
+- Verified the data shape and quality before applying the modeling steps.
 
-## Data
+### 2. Data cleaning and preparation
+- Converted purchase amounts from strings such as "$500" and "$1,500" into numeric values.
+- Filled missing categorical values with a placeholder label such as "Unknown".
+- Removed incomplete rows in required numeric columns to maintain consistent model input.
+- Reviewed duplicate entries and identified high-spending customers for additional inspection.
 
-The analysis uses the dataset:
+### 3. Exploratory data analysis
+- Inspected the dataset schema and summary statistics.
+- Reviewed missing data and overall data quality.
+- Computed age-based spending patterns to explore relationships in the dataset.
+- Compared age with purchase value to assess visible trends.
 
-- `Ecommerce_Consumer_Behavior_Analysis_Data.csv` from Kaggle
+### 4. Visualization
+- Created an age distribution plot to show the customer demographic spread.
+- Generated the main regression visualization comparing purchase amount and age trends.
+- Saved the remaining output images to the project directory for interpretation and reporting.
 
-Expected location:
+### 5. Regression modeling
+- Built a linear regression model using age as the predictor variable.
+- Split the data into training and testing sets.
+- Evaluated the model with the following metrics:
+  - Mean Squared Error (MSE): 17474.19
+  - Root Mean Squared Error (RMSE): 132.19
+  - Mean Absolute Error (MAE): 115.86
+  - R-squared: -0.0035
+- The model coefficients were:
+  - Intercept: 279.96
+  - Age coefficient: -0.1914
 
-- `/Users/tsaonetapologo/Downloads/Ecommerce_Consumer_Behavior_Analysis_Data.csv`
+### 6. Testing and automation
+- Added unit tests in `test_ecommerce_analysis.py` for data cleaning and filtering logic.
+- Implemented CI in `.github/workflows/tests.yml` to run tests automatically on pushes and pull requests.
+- Installed and validated the required Python packages for analysis and test execution.
 
-## Methodology (how the analysis was carried out)
+## Key Result
+The model shows that age alone is not a strong predictor of purchase amount in this dataset. The R-squared value is negative, which indicates the model performs worse than a simple mean-based baseline. This suggests that other variables such as income, engagement, purchase channel, or purchase intent likely contribute more strongly to purchasing behavior.
 
-1. I loaded the dataset and validated that the file exists and is not empty.
-2. Converted the `Purchase_Amount` field from currency strings into numeric values for my code run 
-   easily with no errors.
-3. Printed a preview of the dataset, column names, summary statistics, and missing values.
-4. Identified duplicate rows and filters high-spending customers for additional review.
-5. Grouped average purchase amount by age to examined spending patterns by demographic segment.
-6. Generated exploratory visualizations for age distribution and age versus purchase amount.
-7. Trained a simple linear regression model using age as the predictor variable.
-8. Evaluated the model using:
-   - Mean Squared Error (MSE)
-   - Root Mean Squared Error (RMSE)
-   - Mean Absolute Error (MAE)
-   - R-squared ($R^2$)
-9. Saved the generated plots to the working directory for interpretation and reporting.
+## Project Files
+- `ecommerce_analysis.py` — data cleaning, exploratory analysis, plotting, and regression model
+- `test_ecommerce_analysis.py` — pytest-based validation of core functions
+- `.github/workflows/tests.yml` — automated testing pipeline
+- `age_distribution.png` — age distribution visualization
+- `purchase_amount_vs_age.png` — regression visualization
 
-## Tools Used
+## How to Run
 
-- Python
-- pandas
-- polars
-- matplotlib
-- seaborn
-- scikit-learn
-- Rust (for performance comparison and discussion)
-
-## Generated Outputs
-
-The following output files are retained in the project directory:
-
-- `age_distribution.png` — a histogram showing the distribution of customer ages in the dataset.
-- `purchase_amount_vs_age_model.png` — a scatter plot comparing actual and predicted purchase amounts against age for the regression analysis.
-Keeping both plots is useful because they answer different questions: the histogram describes the data distribution, while the scatter plot shows the relationship being modeled and the model's fit.
-
-## Results 
-
-The dataset contains mostly complete records, with only a small number of missing values in categorical fields. These were filled with a placeholder value to maintain consistency in the analysis, and rows with missing values in numeric fields required for regression were removed before modeling.
-
-The exploratory analysis suggests that customer age has only a limited relationship with purchase amount in this dataset. The linear regression model provides a useful baseline for prediction, but its explanatory power is modest, indicating that additional behavioral or demographic features would likely improve predictive accuracy. The script prints MSE, RMSE, MAE, and $R^2$ for the final model evaluation.
-
-## Conclusion
-
-This project demonstrates a basic end-to-end data analysis and machine learning workflow using a consumer behavior dataset. It provides a foundation for more advanced modeling, feature engineering, and deeper behavioral analysis in future work. The main lesson is that age alone is not a strong predictor of purchase amount, and a more complete model would likely benefit from incorporating additional behavioral and demographic features.
-
-
-## QUESTION 2
-## Rust and Pandas Update
-
-This assignment also highlights the practical distinction between pandas and Rust in data processing workflows. Pandas is highly effective for rapid exploratory analysis, data cleaning, and prototyping because it provides an intuitive API and integrates seamlessly with Python-based tools for plotting, statistical analysis, and machine learning. In this project, pandas was used to load the dataset, clean the purchase data, summarize the data, and build the regression model.
-
-Rust, by contrast, becomes valuable when performance, memory efficiency, and low-level control are more important, especially for larger datasets or compute-intensive pipelines. Although Rust has a steeper learning curve and a more verbose syntax, it offers faster execution and stronger guarantees around memory safety. In a larger analytics workflow, pandas is often ideal for rapid iteration and exploration, while Rust or another compiled engine may be more appropriate for performance-sensitive production pipelines.
-
-This comparison illustrates an important principle in data engineering: Python libraries such as pandas are excellent for readability and experimentation, whereas Rust is especially useful when speed, concurrency, and system-level efficiency are the primary objectives.
-
-## Requirements
-
-Install the required packages in the project environment:
-
+### Install dependencies
 ```bash
-cd /Users/tsaonetapologo/data-processing-frameworks-demo
-. .venv/bin/activate
-python -m pip install pandas matplotlib seaborn scikit-learn polars
+python -m pip install pandas pytest polars matplotlib seaborn scikit-learn
 ```
 
-## Run the Script
-
+### Run the analysis script
 ```bash
-/Users/tsaonetapologo/data-processing-frameworks-demo/.venv/bin/python /Users/tsaonetapologo/Downloads/ecommerce_analysis.py
+python ecommerce_analysis.py
 ```
-## Visualizations
+
+### Run tests
+```bash
+pytest -v
+```
+
+## Verification
+The project was verified with the current repository state:
+- Test result: 8 passed in 1.41s
+- Analysis execution successfully produced the model metrics and the remaining output plots
+
+## Final Status
+The repository is now complete with a working analysis workflow, validated tests, remaining output visualizations, and CI configuration. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.

@@ -90,3 +90,8 @@ def test_high_spenders_returns_empty_when_none_qualify(sample_data):
     result = get_high_spenders(df, threshold=10000)
 
     assert result.empty
+
+import os
+import subprocess
+import sys
+from pathlib import Path

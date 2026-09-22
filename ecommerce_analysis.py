@@ -9,8 +9,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-import pandas as pd
-
 
 def clean_data(df):
     """Clean the e-commerce dataset."""
