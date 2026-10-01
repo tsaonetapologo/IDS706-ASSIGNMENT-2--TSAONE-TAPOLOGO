@@ -104,27 +104,34 @@ docker run --rm ecommerce-analysis
 ## Refactoring
 
 ### What I changed
-I refactored the analysis script by separating data loading,
-cleaning, analysis, and visualization into clearer sections/functions.
-I also improved variable names and removed unnecessary/repeated code.
+I refactored the analysis script by extracting reusable helpers for CSV discovery, purchase normalization, plotting, and model fitting. This removed duplicated cleaning logic from `main()` and made the workflow easier to follow and test.
+
+I also added a small, purpose-built regression test for the CSV resolution helper, introduced a consistent `Makefile` for local automation, and updated the CI workflow to check formatting and linting before running the test suite.
 
 ### Why I changed it
-These changes make the code easier to read, maintain, test, and reuse.
+The original script had a large `main()` function that combined loading, cleaning, analysis, and visualization in one place. Separating those responsibilities made the code easier to read, debug, and extend without changing the underlying analysis results.
 
 ### How I verified it
-I ran the project tests using:
+I verified the refactor with fresh project checks:
 
 ```bash
-python -m pytest -v
+python -m black --check .
+python -m flake8 .
+python -m pytest -q
+python ecommerce_analysis.py
 ```
 
-### Verification
-The project was verified with the current repository state:
-- Test result: 8 passed with `python -m pytest -v`
-- Analysis execution successfully produced the model metrics and the remaining output plots
+These checks passed successfully, and the end-to-end analysis still produced the expected model metrics and output plots.
+
+### Refactoring diff
+
+![Refactoring diff](refactor_diff.png)
 
 ## Final Status
-The repository is now complete with a working analysis workflow, validated tests, the current output visualizations, and CI configuration. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.
+The repository is now complete with a working analysis workflow, validated tests, the current output visualizations, CI configuration, linting, and a cleaner structure that is easier to maintain. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.
+
+## Real-World Business Interpretation
+This analysis is useful for a retail or e-commerce team that wants to understand whether age alone is a useful indicator of purchase spending. The weak relationship in the regression suggests that spending is influenced more by other behavioral and demographic factors, such as income, product category, channel preference, or marketing engagement. In practice, a stronger model would likely combine age with features like purchase intent, income level, and platform behavior to support targeted promotions and customer segmentation.
 
 ## Conclusion
 This project demonstrates a complete basic data-analysis workflow, including data cleaning, exploratory analysis, visualization, regression, alternative dataframe processing with Polars, automated testing, Docker, and continuous integration through GitHub Actions.

@@ -28,5 +28,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: Check formatting
+        run: python -m black --check .
+
+      - name: Run lint
+        run: python -m flake8 ecommerce_analysis.py test_ecommerce_analysis.py
+
       - name: Run tests
         run: python -m pytest -v

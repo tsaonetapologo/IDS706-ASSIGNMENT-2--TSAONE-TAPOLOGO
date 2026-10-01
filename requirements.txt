@@ -4,3 +4,5 @@ seaborn
 pytest
 scikit-learn
 polars
+black
+flake8

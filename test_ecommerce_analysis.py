@@ -1,7 +1,12 @@
 import pandas as pd
 import pytest
 
-from ecommerce_analysis import clean_data, get_high_spenders, average_spending_by_age
+from ecommerce_analysis import (
+    average_spending_by_age,
+    clean_data,
+    get_high_spenders,
+    resolve_csv_path,
+)
 
 
 @pytest.fixture
@@ -76,6 +81,19 @@ def test_average_spending_by_age(sample_data):
     assert result.loc[40] == 800
 
 
+def test_resolve_csv_path_prefers_explicit_env_path(tmp_path):
+    explicit_path = tmp_path / "custom.csv"
+    explicit_path.write_text("id\n1\n")
+
+    result = resolve_csv_path(
+        project_root=tmp_path,
+        download_dir=tmp_path / "downloads",
+        env_path=str(explicit_path),
+    )
+
+    assert result == explicit_path
+
+
 def test_high_spenders_excludes_amount_equal_to_threshold(sample_data):
     df = clean_data(sample_data)
 
@@ -90,8 +108,3 @@ def test_high_spenders_returns_empty_when_none_qualify(sample_data):
     result = get_high_spenders(df, threshold=10000)
 
     assert result.empty
-
-import os
-import subprocess
-import sys
-from pathlib import Path
