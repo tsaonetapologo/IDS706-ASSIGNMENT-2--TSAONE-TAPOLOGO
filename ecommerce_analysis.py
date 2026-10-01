@@ -217,10 +217,19 @@ def main():
 
     print("\nPOLARS ANALYSIS")
 
-    pl_df = pl.read_csv(csv_path)
+    pl_df = pl.read_csv(
+        csv_path,
+        schema_overrides={"Purchase_Amount": pl.String},
+    )
+
+    print("\nRAW PURCHASE AMOUNT VALUES:")
+    print(pl_df["Purchase_Amount"].head(10))
+    print("RAW DTYPE:", pl_df["Purchase_Amount"].dtype)
+
     pl_df = pl_df.with_columns(
         pl.col("Purchase_Amount")
-        .str.replace_all(r"[$,]", "", literal=False)
+        .str.replace_all(r"[$,]", "")
+        .str.strip_chars()
         .cast(pl.Float64, strict=False)
         .alias("Purchase_Amount")
     )
@@ -231,6 +240,11 @@ def main():
     print(pl_df.shape)
     print("\nSummary statistics:")
     print(pl_df.describe())
+
+    print("\nPurchase Amount diagnostic:")
+    print(pl_df["Purchase_Amount"].head(10))
+    print(pl_df["Purchase_Amount"].dtype)
+    print("Null count:", pl_df["Purchase_Amount"].null_count())
 
     if "Purchase_Amount" in pl_df.columns:
         average_purchase = pl_df["Purchase_Amount"].mean()

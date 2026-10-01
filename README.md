@@ -44,25 +44,43 @@ This repository reflects the final state of the assignment work completed today.
 
 ### 6. Testing and automation
 - Added unit tests in `test_ecommerce_analysis.py` for data cleaning and filtering logic.
-- Implemented CI in `.github/workflows/tests.yml` to run tests automatically on pushes and pull requests.
+- Implemented GitHub Actions CI in `.github/workflows/tests.yml` to automatically
+  run the test suite on pushes and pull requests.
 - Installed and validated the required Python packages for analysis and test execution.
 
+### 7. Polars analysis
+- Loaded `Purchase_Amount` as text so currency-formatted values can be cleaned consistently.
+- Removed currency symbols and commas, trimmed surrounding whitespace, and cast the values to `Float64`.
+- Printed the parsed values, null count, summary statistics, and average purchase amount as diagnostics.
+- With the included dataset, the Polars average is approximately `275.06` and no purchase amounts fail conversion.
+
 ## Key Result
-The model shows that age alone is not a strong predictor of purchase amount in this dataset. The R-squared value is negative, which indicates the model performs worse than a simple mean-based baseline. This suggests that other variables such as income, engagement, purchase channel, or purchase intent likely contribute more strongly to purchasing behavior.
+The regression results indicate that age alone provides very little explanatory power for purchase amount in this dataset. The negative R² indicates that the model performs worse than a simple mean-based baseline.
 
 ## Project Files
 - `ecommerce_analysis.py` — data cleaning, exploratory analysis, plotting, and regression model
 - `test_ecommerce_analysis.py` — pytest-based validation of core functions
 - `.github/workflows/tests.yml` — automated testing pipeline
+- `Dockerfile` — container image for running the analysis
+- `requirements.txt` — Python dependencies
 - `Ecommerce_Consumer_Behavior_Analysis_Data-2.csv` — source dataset used for the analysis
 - `age_distribution.png` — age distribution visualization
 - `purchase_amount_vs_age.png` — regression visualization
 
 ## How to Run
 
+### Select the dataset
+The script searches for `Ecommerce_Consumer_Behavior_Analysis_Data-2.csv` in this order:
+1. The path set by `ECOMMERCE_CSV_PATH`.
+2. The project directory.
+3. The project's `data/` directory.
+4. `/Users/tsaonetapologo/Downloads`.
+
+Set `ECOMMERCE_CSV_PATH` to the full CSV file path when using a dataset stored elsewhere.
+
 ### Install dependencies
 ```bash
-python -m pip install pandas pytest polars matplotlib seaborn scikit-learn
+python -m pip install -r requirements.txt
 ```
 
 ### Run the analysis script
@@ -72,7 +90,14 @@ python ecommerce_analysis.py
 
 ### Run tests
 ```bash
-pytest -v
+python -m pytest -v
+```
+
+### Run with Docker
+Build the image from the project directory, which includes the bundled dataset:
+```bash
+docker build -t ecommerce-analysis .
+docker run --rm ecommerce-analysis
 ```
 
 ## Verification
@@ -83,4 +108,5 @@ The project was verified with the current repository state:
 ## Final Status
 The repository is now complete with a working analysis workflow, validated tests, the current output visualizations, and CI configuration. It is ready for review and potential extension with additional behavioral features for improved predictive modeling.
 
-
+## Conclusion
+This project demonstrates a complete basic data-analysis workflow, including data cleaning, exploratory analysis, visualization, regression, alternative dataframe processing with Polars, automated testing, Docker, and continuous integration through GitHub Actions.
