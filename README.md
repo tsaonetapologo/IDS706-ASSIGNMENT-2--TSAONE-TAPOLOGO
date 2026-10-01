@@ -1,4 +1,5 @@
 # E-commerce Consumer Behavior Analysis
+[![Python Tests](https://github.com/tsaonetapologo/IDS706-ASSIGNMENT-2--TSAONE-TAPOLOGO/actions/workflows/tests.yml/badge.svg)](https://github.com/tsaonetapologo/IDS706-ASSIGNMENT-2--TSAONE-TAPOLOGO/actions/workflows/tests.yml)
 
 ## Overview
 This project analyzes customer purchasing behavior using an e-commerce dataset and builds a simple predictive model to understand how age relates to purchase amount. The work includes data cleaning, exploratory analysis, visualizations, and regression modeling.
@@ -45,7 +46,8 @@ This repository reflects the final state of the assignment work completed today.
 ### 6. Testing and automation
 - Added unit tests in `test_ecommerce_analysis.py` for data cleaning and filtering logic.
 - Implemented GitHub Actions CI in `.github/workflows/tests.yml` to automatically
-  run the test suite on pushes and pull requests.
+  run the test suite on pushes, pull requests, and a weekly schedule. The test
+  job covers Python 3.11 and 3.12.
 - Installed and validated the required Python packages for analysis and test execution.
 
 ### 7. Polars analysis
@@ -99,10 +101,26 @@ Build the image from the project directory, which includes the bundled dataset:
 docker build -t ecommerce-analysis .
 docker run --rm ecommerce-analysis
 ```
+## Refactoring
 
-## Verification
+### What I changed
+I refactored the analysis script by separating data loading,
+cleaning, analysis, and visualization into clearer sections/functions.
+I also improved variable names and removed unnecessary/repeated code.
+
+### Why I changed it
+These changes make the code easier to read, maintain, test, and reuse.
+
+### How I verified it
+I ran the project tests using:
+
+```bash
+python -m pytest -v
+```
+
+### Verification
 The project was verified with the current repository state:
-- Test result: 8 passed in 1.41s
+- Test result: 8 passed with `python -m pytest -v`
 - Analysis execution successfully produced the model metrics and the remaining output plots
 
 ## Final Status
